@@ -1,0 +1,115 @@
+<!doctype html>
+<script src="code/chapter/16_game.js"></script>
+<script src="code/levels.js"></script>
+
+<link rel="stylesheet" href="css/game.css">
+
+<!--
+<div id="Menu">
+    <button>Jugar</button>
+    <button>Creditos</button>
+    <button id="BS" onclick="document.getElementById('player').play()">Banda sonora</button>
+
+</div > 
+-->
+<script>
+    function runLevel(level, Display) {
+        let display = new Display(document.body, level);
+        let state = State.start(level);
+        let ending = 1;
+        return new Promise(resolve => {
+            runAnimation(time => {
+                state = state.update(time, arrowKeys);
+                display.syncState(state);
+                if (state.status == "playing") {
+                    return true;
+                } else if (ending > 0) {
+                    ending -= time;
+                    return true;
+                } else {
+                    display.clear();
+                    resolve(state.status);
+                    return false;
+                }
+
+            });
+        });
+
+    }
+</script>
+
+
+
+
+<button id="pausar">PAUSAR</button >
+<button id="reanudar">REANUDAR</button>
+
+<audio src="sound.mp3" autoplay loop></audio>
+
+
+
+
+<button id="boton" onclick="document.getElementById('player').play()">PLAY</button>
+
+
+
+
+<body style="background-color: rgba(26, 0, 0, 0.938);">
+
+    <script>
+        var boton = document.getElementById("BS");
+        boton.addEventListener("click", function() {});
+        var v = document.getElementsByTagName("audio")[0];
+        var sound = false;
+        v.play();
+        this.innerHTML = "STOP";
+        sound = true;
+        v.pause();
+        this.innerHTML = "PLAY";
+        sound = false;
+        boton.addEventListener("click", function() {
+            if (!sound) {
+                v.play();
+                this.innerHTML = "STOP";
+                sound = true;
+            } else {
+                v.pause();
+                this.innerHTML = "PLAY";
+                sound = false;
+            }
+        });
+    </script>
+    <label id="resultado"></label >
+       
+    <div style="color: antiquewhite;" id="contenido">Vidas:3</div>
+    <script id="juego">
+        runGame(GAME_LEVELS, DOMDisplay);
+    </script>
+
+
+</body>
+
+
+<script>
+    var boton = document.getElementById("boton");
+    boton.addEventListener("click", function() {});
+    var v = document.getElementsByTagName("audio")[0];
+    var sound = false;
+    v.play();
+    this.innerHTML = "STOP";
+    sound = true;
+    v.pause();
+    this.innerHTML = "PLAY";
+    sound = false;
+    boton.addEventListener("click", function() {
+        if (!sound) {
+            v.play();
+            this.innerHTML = "STOP";
+            sound = true;
+        } else {
+            v.pause();
+            this.innerHTML = "PLAY";
+            sound = false;
+        }
+    });
+</script>
